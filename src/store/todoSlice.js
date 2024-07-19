@@ -26,9 +26,12 @@ const todoSlice = createSlice({
       state.tasks = state.tasks.map((task) =>
         task.id === id ? { ...task, isDone: !task.isDone } : task
       );
-    },
+    }, //eslint-disable-next-line
+    sortByDate(state, action){
+      state.tasks.sort()
+    }
   },
 });
 
-export const {addTask, removeTask, setDoneTask} = todoSlice.actions;
+export const {addTask, removeTask, setDoneTask, sortByDate} = todoSlice.actions;
 export default todoSlice.reducer;
