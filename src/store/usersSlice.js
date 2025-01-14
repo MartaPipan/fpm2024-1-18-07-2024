@@ -1,7 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 export const getUsers = createAsyncThunk('users/getUsers',
-    async ({ page, results }, thunkAPI) => {
+    // async ({args}, thunkAPI)   args= якесь корисне навантаження: page, nacionalidade ext.
+    async ({ page, results }, thunkAPI) => {   
         try {
             // const { dispatch } = thunkAPI;
             const data = await fetch(
@@ -21,9 +22,9 @@ const usersSlice = createSlice({
     initialState: {
         users: [],
         error: null,
-        isPending:false
+        isPending: false
     },
-    reducers: {},
+    reducers: {}, //якісь дії,які можна зробити на клієнті не звертаючись до сервера 
     extraReducers: (builder) => {
         builder
             .addCase(getUsers.pending, (state) => {
@@ -43,3 +44,12 @@ const usersSlice = createSlice({
 });
 
 export default usersSlice.reducer;
+
+/**
+createAsyncThunk — це функція з бібліотеки Redux Toolkit, яка спрощує роботу з асинхронними операціями в Redux. Вона дозволяє створювати асинхронні дії (thunk), які можуть відправляти запити на сервер (наприклад, отримання даних з API) і автоматично обробляти стани завантаження, успішної відповіді або помилки.
+dispatch використовується для запуску дій в Redux. Наприклад, щоб викликати асинхронну дію fetchUserById і отримати дані
+Таким чином, createAsyncThunk дозволяє легко працювати з асинхронними запитами, а dispatch викликає дію і змінює стан Redux.
+ * pending — коли запит починається.
+fulfilled — коли запит успішно завершено.
+rejected — коли запит завершився помилкою.
+ */
